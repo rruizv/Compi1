@@ -1,1 +1,105 @@
 #segun videos.
+PARSER_BEGIN(ProyectoF1Compiladores)
+class ProyectoF1Compiladores
+{
+	public static void main(String[] args) throws ParseException
+	{
+		Try
+		{
+		ProyectoF1Compiladores analizador=new ProyectoF1Compiladores(System.in);
+		analizador.Programa();
+		System.out.println("se ha compilado con exito");
+		}
+		catch (ParseException e)
+		{
+		System.out.println(e.getMessage());
+		System.out.println("se han encontrador errores al compilar");
+		}
+	}
+}
+PARSER_END(ProyectoF1Compiladores)
+
+TOKEN:
+{
+	<MAIN: "public static void Main()">{System.out.println("MAIN ->"+image);}
+       |<PROGRAMA: "PROGRAMA">{System.out.println("PROGRAMA ->"+image);}
+       |<SWICH: "swich">{System.out.println("switch case ->"+image);}
+       |<CASE: "case">{System.out.println("iniciando case ->"+image);}
+}
+
+TOKEN:
+{
+	   <LPAREN: "(">{System.out.println("PARENTESIS1 -> "+image);}
+       |<RPAREN: ")">{System.out.println("PARANTESIS1-> "+image);}
+       |<LBRACE: "{">{System.out.println("LLAVE1 -> "+image);}
+       |<RBRACE: "}">{System.out.println("LLAVE2 -> "+image);}
+       |<SEMICOLON: ";">{System.out.println("PUNTO Y COMA -> "+image);}
+}
+TOKEN:
+{
+	<CHAR: "chare">{System.out.println("ENTRADA CHAR -> "+image);}
+       |<NUMBER: (["0"-"9"])+ >{System.out.println("NUMERO "+image+\r\n");}  
+       |<IDENTIFIER: ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*"{">{System.out.println("IDENTIFICADOR -> "+image+"\r\n");}	
+}
+SKIP:
+{
+	" "| "\r\n" |"\t"
+}
+
+void Programa():
+{}
+{
+	<PROGRAMA><IDENTIFIER><LBRACE>Principal()<RBRACE><EOF>
+
+}
+
+Void Principal():
+{}
+{
+	<MAIN>
+	<LBRACE>Sentencias()<RBRACE>
+}
+
+Void Declaracion():
+{}
+{
+	<CHAR><IDENTIFIER><SEMICOLIN>VS()
+}
+
+Void VS():
+{}
+{
+	DeclaracionLocal() | Sentencias ()
+}
+
+Void Sentencias():
+{}
+{
+	{
+	DeclaracionLocal()
+	|funcionSwitch()
+	}*
+}
+
+void funcionSwitch():
+{}
+{
+	<CHAR><LPAREN>Comparaciones()<RPAREN><LBRACE><RBRACE>
+}
+void Comparaciones():
+{}
+{
+	valor()Operadores()valor()
+}
+
+void valor():
+{}
+{
+	<IDENTIFIER> | <NUMBER>
+}
+
+void Operadores():
+{}
+{
+	<MENOR>
+}
