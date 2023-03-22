@@ -1,0 +1,6 @@
+***PARA USAR EL JAVACC***
+
+
+1- javacc "nombredenuestrodocumento.jj" (SIN COMILLAS)
+2-java *.java (compilar)
+javac "nombredenuestroducmento.jj" < "nombredocumento.txt"  (todo sin comillas) "nombredocumento" corresponde a el archivo que almacena nuestra gramatica definida.
