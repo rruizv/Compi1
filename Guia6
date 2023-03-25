@@ -4,3 +4,71 @@ Utilizando una herramienta de generación de compiladores,
  traslade la gramática (por lo menos un par de instrucciones de la gramática definida) a la herramienta seleccionada.
  
  ...editando
+
+*************************************************************TOKENS*****************************************************************************************
+TOKEN:
+{
+	<MAIN: "public static void Main(String[] args)">{System.out.println("MAIN ->"+image);}
+       |<PROGRAMA: "PROGRAMA">{System.out.println("PROGRAMA ->"+image);}
+       |<IMPORT: "import java.util.Scanner;">{System.out.println("Importacion librerias ->"+image);}
+       |<PAQUETEDECLASES: "package">{System.out.println("PAQUETE DE CLASES ->"+image);}
+       |<IF: "ien">{System.out.println("IF ->"+image);}
+       |<CLASESPUBLICAS: "public Class">{System.out.println("CLASES PUBLICAS ->"+image);}
+       |<CIERRE: "break">{System.out.println("CIERRE ->"+image);}
+}
+TOKEN:
+{
+	<LPAREN: "(">{System.out.println("IPAREN -> "+image);}
+       |<RPAREN: ")">{System.out.println("DPAREN -> "+image);}
+       |<LBRACE: "{">{System.out.println("ILLAVE -> "+image);}
+       |<RBRACE: "}">{System.out.println("DLLAVE -> "+image);}
+       |<SEMICOLON: ";">{System.out.println("PUNTO Y COMA -> "+image);}
+       |<PUNTOS: ":">{System.out.println("PUNTO Y COMA -> "+image);}
+}
+TOKEN:
+{
+	 <ASIGNACION : "="> {System.out.println("ASIGNACION -> "+image+"\r\n");}
+       |<MENOR: "<">{System.out.println("MENOR QUE -> "+image);}
+}
+TOKEN:
+{
+	 <Scanner : "Scanner scanner = new Scanner(System.in)"> {System.out.println("escaner de datos de entrada -> "+image+"\r\n");}
+       |<SALIDATXT: "System.out.println()">{System.out.println("MENOR QUE -> "+image);}
+}
+TOKEN:
+{
+	     <INT: "inum">{System.out.println("ENTERO -> "+image);}
+	   |<STRING: "String"+["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*+ > {System.out.println("DATOSTRING ->"+image+"\r\n");}
+       |<NUMBER: (["0"-"9"])+ > {System.out.println("NUMERO ->"+image+"\r\n");}
+       |<IDENTIFIER: ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>{System.out.println("IDENTIFICADOR -> "+image+"\r\n");}	
+}
+SKIP:
+{
+	" "| "\r\n" |"\n" |"\t"   
+}
+***************************************************************************************************************************************************************
+
+**************************** INSTRUCCIONES*********************************************************************************************************************
+
+void instruccion():
+{}
+{
+	<Swhile><LPAREN><IDENTIFIER><RPAREN><LBRACE>
+	( case() )*
+}
+
+void case():
+{}
+{
+	<CASOQUE><STRING><PUNTOS>
+	INDICADOR()
+
+}
+
+void INDICADOR()
+{}
+{
+	<SALIDATXT><SEMICOLON><EOF>
+	<CIERRE>
+}
+***********************************************************************************
