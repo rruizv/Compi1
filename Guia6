@@ -28,7 +28,7 @@ TOKEN:
 TOKEN:
 {
 	 <ASIGNACION : "="> {System.out.println("ASIGNACION -> "+image+"\r\n");}
-       |<MENOR: "<">{System.out.println("MENOR QUE -> "+image);}
+       
 }
 TOKEN:
 {
